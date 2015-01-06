@@ -12,9 +12,9 @@ branch, which is unstable and likely not what you want.
 Choose the version of Calc you want to install and insert the branch name of
 the corresponding version you want. In the example below, Calc 1 has been used:
 
- 1. `mkdir -p github.com/rthornton128`
- 2. `cd github.com/rthornton128`
- 3. `git clone -b calc1 http://github.com/rthornton128/calc`
+ 1. `mkdir -p github.com/LukeMauldin`
+ 2. `cd github.com/LukeMauldin`
+ 3. `git clone -b calc1 http://github.com/LukeMauldin/calc`
 
 To install and use the compiler, change into the calc directory and run the
 following command:

@@ -13,7 +13,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/rthornton128/calc/comp"
+	"github.com/LukeMauldin/calc/comp"
 )
 
 var ext string

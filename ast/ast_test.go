@@ -10,8 +10,8 @@ package ast_test
 import (
 	"testing"
 
-	"github.com/rthornton128/calc/ast"
-	"github.com/rthornton128/calc/token"
+	"github.com/LukeMauldin/calc/ast"
+	"github.com/LukeMauldin/calc/token"
 )
 
 func TestBasicLit(t *testing.T) {

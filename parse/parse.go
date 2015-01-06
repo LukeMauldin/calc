@@ -10,9 +10,9 @@ package parse
 import (
 	"os"
 
-	"github.com/rthornton128/calc/ast"
-	"github.com/rthornton128/calc/scan"
-	"github.com/rthornton128/calc/token"
+	"github.com/LukeMauldin/calc/ast"
+	"github.com/LukeMauldin/calc/scan"
+	"github.com/LukeMauldin/calc/token"
 )
 
 func ParseFile(filename, src string) *ast.File {

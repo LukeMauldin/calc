@@ -17,7 +17,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/rthornton128/calc/comp"
+	"github.com/LukeMauldin/calc/comp"
 )
 
 var calcExt = ".calc"

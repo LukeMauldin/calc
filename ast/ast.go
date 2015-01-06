@@ -8,7 +8,7 @@
 package ast
 
 import (
-	"github.com/rthornton128/calc/token"
+	"github.com/LukeMauldin/calc/token"
 )
 
 type Node interface {

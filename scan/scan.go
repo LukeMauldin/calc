@@ -10,7 +10,7 @@ package scan
 import (
 	"unicode"
 
-	"github.com/rthornton128/calc/token"
+	"github.com/LukeMauldin/calc/token"
 )
 
 type Scanner struct {

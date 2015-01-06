@@ -10,7 +10,7 @@ package scan
 import (
 	"fmt"
 
-	"github.com/rthornton128/calc/token"
+	"github.com/LukeMauldin/calc/token"
 )
 
 type Error struct {
