@@ -19,7 +19,7 @@ func (p Pos) Valid() bool {
 
 type Position struct {
 	Filename string
-	Col, Row int
+	Col, Row Pos
 }
 
 func (p Position) String() string {

@@ -18,6 +18,7 @@ const (
 
 	lit_start
 	INTEGER
+	FLOAT
 	lit_end
 
 	op_start
@@ -38,6 +39,7 @@ var tok_strings = map[Token]string{
 	ILLEGAL: "Illegal",
 	COMMENT: "Comment",
 	INTEGER: "Integer",
+	FLOAT:   "Float",
 	LPAREN:  "(",
 	RPAREN:  ")",
 	ADD:     "+",

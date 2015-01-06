@@ -17,12 +17,12 @@ var test_expr = "(+ 2 3)\n(- 5 4)"
 
 func TestFilePosition(t *testing.T) {
 	var tests = []struct {
-		col, row int
+		col, row token.Pos
 		pos      token.Pos
 	}{
 		{1, 1, token.Pos(1)},
-		{1, 2, token.Pos(8)},
-		{7, 2, token.Pos(14)},
+		{8, 1, token.Pos(8)},
+		{6, 1, token.Pos(14)},
 	}
 	f := token.NewFile("", "")
 	f.AddLine(token.Pos(1))
@@ -37,7 +37,6 @@ func TestFilePosition(t *testing.T) {
 	if p.String() != "test.calc:1:1" {
 		t.Fatal("Nameless file: Expected: test.calc:1:1, Got:", p.String())
 	}
-
 	f = token.NewFile("test", test_expr)
 	f.AddLine(token.Pos(7))
 	f.AddLine(token.Pos(14))
