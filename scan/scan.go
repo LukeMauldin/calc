@@ -8,6 +8,7 @@
 package scan
 
 import (
+	"strings"
 	"unicode"
 
 	"github.com/LukeMauldin/calc/token"
@@ -15,8 +16,8 @@ import (
 
 type Scanner struct {
 	ch      rune
-	offset  int
-	roffset int
+	offset  token.Pos
+	roffset token.Pos
 	src     string
 	file    *token.File
 }
@@ -58,7 +59,7 @@ func (s *Scanner) Scan() (lit string, tok token.Token, pos token.Pos) {
 		s.next()
 		return s.Scan()
 	default:
-		if s.offset >= len(s.src)-1 {
+		if s.offset >= token.Pos(len(s.src)-1) {
 			tok = token.EOF
 		} else {
 			tok = token.ILLEGAL
@@ -72,7 +73,7 @@ func (s *Scanner) Scan() (lit string, tok token.Token, pos token.Pos) {
 
 func (s *Scanner) next() {
 	s.ch = rune(0)
-	if s.roffset < len(s.src) {
+	if s.roffset < token.Pos(len(s.src)) {
 		s.offset = s.roffset
 		s.ch = rune(s.src[s.offset])
 		if s.ch == '\n' {
@@ -85,18 +86,31 @@ func (s *Scanner) next() {
 func (s *Scanner) scanNumber() (string, token.Token, token.Pos) {
 	start := s.offset
 
-	for unicode.IsDigit(s.ch) {
+	for unicode.IsDigit(s.ch) || s.ch == '.' {
 		s.next()
 	}
 	offset := s.offset
 	if s.ch == rune(0) {
 		offset++
 	}
-	return s.src[start:offset], token.INTEGER, s.file.Pos(start)
+
+	//Detect if str is a integer or float
+	str := s.src[start:offset]
+	decimalCount := strings.Count(str, ".")
+	var tokenType token.Token
+	switch decimalCount {
+	case 0:
+		tokenType = token.INTEGER
+	case 1:
+		tokenType = token.FLOAT
+	default:
+		tokenType = token.ILLEGAL
+	}
+	return str, tokenType, s.file.Pos(start)
 }
 
 func (s *Scanner) skipComment() {
-	for s.ch != '\n' && s.offset < len(s.src)-1 {
+	for s.ch != '\n' && s.offset < token.Pos(len(s.src)-1) {
 		s.next()
 	}
 }

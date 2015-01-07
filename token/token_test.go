@@ -13,7 +13,7 @@ import (
 	"github.com/LukeMauldin/calc/token"
 )
 
-var test_expr = "(+ 2 3)\n(- 5 4)"
+var test_expr = "(+ 2 3)\n(- 5 4)\n(+ 2 2.2)\n(+ 1 1)"
 
 func TestFilePosition(t *testing.T) {
 	var tests = []struct {
@@ -21,8 +21,11 @@ func TestFilePosition(t *testing.T) {
 		pos      token.Pos
 	}{
 		{1, 1, token.Pos(1)},
-		{8, 1, token.Pos(8)},
-		{6, 1, token.Pos(14)},
+		{6, 1, token.Pos(6)},
+		{0, 2, token.Pos(8)},
+		{1, 2, token.Pos(9)},
+		{6, 2, token.Pos(14)},
+		{3, 3, token.Pos(18)},
 	}
 	f := token.NewFile("", "")
 	f.AddLine(token.Pos(1))
@@ -40,6 +43,7 @@ func TestFilePosition(t *testing.T) {
 	f = token.NewFile("test", test_expr)
 	f.AddLine(token.Pos(7))
 	f.AddLine(token.Pos(14))
+	f.AddLine(token.Pos(24))
 	for _, v := range tests {
 		p := f.Position(v.pos)
 		if p.Col != v.col || p.Row != v.row {
@@ -58,6 +62,7 @@ func TestLookup(t *testing.T) {
 		{"%", token.REM},
 		{"EOF", token.EOF},
 		{"Integer", token.INTEGER},
+		{"Float", token.FLOAT},
 		{"Comment", token.COMMENT},
 		{"", token.ILLEGAL},
 	}
@@ -78,6 +83,7 @@ func TestIsLiteral(t *testing.T) {
 		{token.REM, false},
 		{token.EOF, false},
 		{token.INTEGER, true},
+		{token.FLOAT, true},
 		{token.COMMENT, false},
 	}
 
@@ -97,6 +103,7 @@ func TestIsOperator(t *testing.T) {
 		{token.REM, true},
 		{token.EOF, false},
 		{token.INTEGER, false},
+		{token.FLOAT, false},
 		{token.COMMENT, false},
 	}
 

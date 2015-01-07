@@ -44,8 +44,14 @@ func (f *File) Position(p Pos) Position {
 	col, row := p, Pos(1)
 
 	for i, nl := range f.lines {
-		if p > f.Pos(nl) {
-			col, row = p-f.Pos(nl), Pos(i+1)
+		if p < f.Pos(nl) && i == 0 {
+			//Handle scenario where p is one the first row
+			break
+		} else if p == f.Pos(nl) && i == 0 {
+			//Handle scenario where p is a newline character
+			col, row = 0, Pos(i+2)
+		} else if p > f.Pos(nl) {
+			col, row = p-f.Pos(nl), Pos(i+2)
 		}
 	}
 

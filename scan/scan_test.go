@@ -37,7 +37,7 @@ func TestNumber(t *testing.T) {
 }
 
 func TestScan(t *testing.T) {
-	src := "(+ 2 (- 4 1) (* 6 5) (% 10 2) (/ 9 3)); comment"
+	src := "(+ 2 (- 4 1) (* 6 5) (% 10 2) (/ 9 3) (+ 2 1.5)); comment"
 	expected := []token.Token{
 		token.LPAREN,
 		token.ADD,
@@ -61,6 +61,11 @@ func TestScan(t *testing.T) {
 		token.QUO,
 		token.INTEGER,
 		token.INTEGER,
+		token.RPAREN,
+		token.LPAREN,
+		token.ADD,
+		token.INTEGER,
+		token.FLOAT,
 		token.RPAREN,
 		token.RPAREN,
 		token.EOF,
@@ -69,7 +74,7 @@ func TestScan(t *testing.T) {
 }
 
 func TestScanAllTokens(t *testing.T) {
-	src := "()+-*/% 1 12\t 12345 123456789 | a as ! \\ \r ;"
+	src := "()+-*/% 1 12\t 12345 123456789 1.2 1..2 | a as ! \\ \r ;"
 	expected := []token.Token{
 		token.LPAREN,
 		token.RPAREN,
@@ -82,6 +87,8 @@ func TestScanAllTokens(t *testing.T) {
 		token.INTEGER,
 		token.INTEGER,
 		token.INTEGER,
+		token.FLOAT,
+		token.ILLEGAL,
 		token.ILLEGAL,
 		token.ILLEGAL,
 		token.ILLEGAL,

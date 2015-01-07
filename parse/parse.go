@@ -97,12 +97,14 @@ func (p *parser) parseGenExpr() ast.Expr {
 	switch p.tok {
 	case token.LPAREN:
 		expr = p.parseExpr()
-	case token.INTEGER:
+	case token.INTEGER, token.FLOAT:
 		expr = p.parseBasicLit()
 		p.next()
 	default:
-		p.addError("Expected '" + token.LPAREN.String() + "' or '" +
-			token.INTEGER.String() + "' got '" + p.lit + "'")
+		p.addError("Expected '" + token.LPAREN.String() +
+			"' or '" + token.INTEGER.String() +
+			"' or '" + token.FLOAT.String() +
+			"' got '" + p.lit + "'")
 		p.next()
 	}
 
